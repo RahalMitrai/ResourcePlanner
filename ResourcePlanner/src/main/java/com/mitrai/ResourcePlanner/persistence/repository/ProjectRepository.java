@@ -1,0 +1,11 @@
+package com.mitrai.ResourcePlanner.persistence.repository;
+
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
+
+import com.mitrai.ResourcePlanner.persistence.entity.Project;
+
+@Repository
+public interface ProjectRepository extends CrudRepository<Project, Long>{
+
+}
