@@ -1,16 +1,14 @@
 package com.mitrai.ResourcePlanner.persistence.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
-public class Project {
+public class ResourcePlannerEntity {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long id;
+
 	private String title;
 
 	public long getId() {
@@ -28,5 +26,9 @@ public class Project {
 	public void setTitle(String title) {
 		this.title = title;
 	}
+
+	@ManyToOne
+	@JoinColumn
+	private EntityType entityType;
 
 }
