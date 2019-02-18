@@ -11,9 +11,12 @@ public class CustomRoutingDataSource extends AbstractRoutingDataSource{
 		ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();     // get request object
         if(attr!=null) {
             String tenantId = attr.getRequest().getParameter("tenantId");       // find parameter from request
-            return tenantId;
+            if(tenantId==null){
+                return "tenantId1";
+            }
+            return  tenantId;
         }else{
-            return "tenantId2";             // default data source
+            return "tenantId1";             // default data source
         }
 
 	}

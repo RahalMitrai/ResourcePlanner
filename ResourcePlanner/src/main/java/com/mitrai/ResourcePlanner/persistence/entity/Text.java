@@ -11,6 +11,8 @@ public class Text {
 
     private String value;
 
+    private int entityId;
+
     @ManyToOne
     @JoinColumn
     private Attribute attribute;
@@ -29,5 +31,13 @@ public class Text {
 
     public void setValue(String value) {
         this.value = value;
+    }
+
+    public int getEntityId() {
+        return entityId;
+    }
+
+    public void setEntityId(int entityId) {
+        this.entityId = entityId;
     }
 }

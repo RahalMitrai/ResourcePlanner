@@ -14,7 +14,7 @@ public class AttributeController {
     @Autowired
     private AttributeService attributeService;
 
-    @RequestMapping(value = "save", method=RequestMethod.POST)
+    @RequestMapping(value = "attribute/save", method=RequestMethod.POST)
     public Attribute save(Attribute attribute){
         return attributeService.save(attribute);
     }

@@ -13,6 +13,7 @@ public class EntityTypeServiceImpl implements EntityTypeService {
     private EntityTypeRepository entityTypeRepository;
 
     public EntityType save(EntityType entityType) {
+        System.out.println("Entity type in service"+entityType.getLabel());
         return entityTypeRepository.save(entityType);
     }
 }

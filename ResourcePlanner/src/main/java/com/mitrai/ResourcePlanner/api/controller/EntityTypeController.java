@@ -13,8 +13,9 @@ public class EntityTypeController {
     @Autowired
     private EntityTypeService entityTypeService;
 
-    @RequestMapping(value = "save", method=RequestMethod.POST)
+    @RequestMapping(value = "entityType/save", method=RequestMethod.POST)
     public EntityType save(EntityType entityType){
+        System.out.println("Entity type in controller"+entityType.getLabel());
         return entityTypeService.save(entityType);
     }
 }

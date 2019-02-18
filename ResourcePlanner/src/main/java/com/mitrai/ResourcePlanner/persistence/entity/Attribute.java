@@ -20,6 +20,7 @@ public class Attribute {
     private Set<Text> texts;
 
 
+
     public long getId() {
         return id;
     }

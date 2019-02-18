@@ -34,7 +34,7 @@ public class ResourcePlannerApplication {
 		dataSource1.setUrl("jdbc:mysql://localhost:3306/rp_db2");
 		dataSource1.setUsername("root");
 		dataSource1.setPassword("root");
-		HashMap<Object, Object> hashMap = new HashMap<>();
+		HashMap<Object, Object> hashMap = new HashMap();
 		
 		hashMap.put("tenantId1", dataSource);
 		hashMap.put("tenantId2", dataSource1);

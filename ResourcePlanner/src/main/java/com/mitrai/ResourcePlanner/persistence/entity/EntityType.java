@@ -1,7 +1,6 @@
 package com.mitrai.ResourcePlanner.persistence.entity;
 
 import javax.persistence.*;
-import java.util.Set;
 
 @Entity
 public class EntityType {
@@ -28,7 +27,7 @@ public class EntityType {
         this.label = label;
     }
 
-    @OneToMany(mappedBy = "entityType")
-    private Set<ResourcePlannerEntity> resourcePlannerEntities;
+    //@OneToMany(mappedBy = "entityType")
+    //private Set<ResourcePlannerEntity> resourcePlannerEntities;
 
 }

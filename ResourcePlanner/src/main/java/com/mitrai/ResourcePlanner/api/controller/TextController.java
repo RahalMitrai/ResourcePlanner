@@ -13,7 +13,7 @@ public class TextController {
     @Autowired
     private TextService textService;
 
-    @RequestMapping(value = "save", method=RequestMethod.POST)
+    @RequestMapping(value = "text/save", method=RequestMethod.POST)
     public Text save(Text text){
         return textService.save(text);
     }
