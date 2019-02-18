@@ -11,11 +11,19 @@ public class Text {
 
     private String value;
 
-    private int entityId;
+    private long entityId;
 
     @ManyToOne
     @JoinColumn
     private Attribute attribute;
+
+    public Attribute getAttribute() {
+        return attribute;
+    }
+
+    public void setAttribute(Attribute attribute) {
+        this.attribute = attribute;
+    }
 
     public long getId() {
         return id;
@@ -33,11 +41,11 @@ public class Text {
         this.value = value;
     }
 
-    public int getEntityId() {
+    public long getEntityId() {
         return entityId;
     }
 
-    public void setEntityId(int entityId) {
+    public void setEntityId(long entityId) {
         this.entityId = entityId;
     }
 }

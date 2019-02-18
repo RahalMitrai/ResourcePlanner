@@ -12,7 +12,7 @@ public class Project {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private long id;
 
-    private int title;
+    private String title;
 
     public long getId() {
         return id;
@@ -22,11 +22,11 @@ public class Project {
         this.id = id;
     }
 
-    public int getTitle() {
+    public String getTitle() {
         return title;
     }
 
-    public void setTitle(int title) {
+    public void setTitle(String title) {
         this.title = title;
     }
 }

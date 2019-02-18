@@ -29,8 +29,6 @@ public class EntityType {
         this.label = label;
     }
 
-    //@OneToMany(mappedBy = "entityType")
-    //private Set<ResourcePlannerEntity> resourcePlannerEntities;
 
     @OneToMany
     private Set<Attribute> attributes = new HashSet<Attribute>();
