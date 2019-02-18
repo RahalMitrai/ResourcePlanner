@@ -10,14 +10,25 @@ public class Attribute {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private long id;
 
-    private long label;
+    private String label;
     private String defaultValue;
 
-    @OneToMany(mappedBy = "attribute")
+    /*@OneToMany(mappedBy = "attribute")
     private Set<Number> numbers;
 
     @OneToMany(mappedBy = "attribute")
-    private Set<Text> texts;
+    private Set<Text> texts;*/
+    @ManyToOne
+    @JoinColumn
+    private EntityType entityType;
+    public EntityType getEntityType() {
+        return entityType;
+    }
+
+    public void setEntityType(EntityType entityType) {
+        this.entityType = entityType;
+    }
+
 
 
 
@@ -29,11 +40,11 @@ public class Attribute {
         this.id = id;
     }
 
-    public long getLabel() {
+    public String getLabel() {
         return label;
     }
 
-    public void setLabel(long label) {
+    public void setLabel(String label) {
         this.label = label;
     }
 

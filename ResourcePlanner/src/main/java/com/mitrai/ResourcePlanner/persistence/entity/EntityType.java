@@ -1,6 +1,8 @@
 package com.mitrai.ResourcePlanner.persistence.entity;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class EntityType {
@@ -29,5 +31,8 @@ public class EntityType {
 
     //@OneToMany(mappedBy = "entityType")
     //private Set<ResourcePlannerEntity> resourcePlannerEntities;
+
+    @OneToMany
+    private Set<Attribute> attributes = new HashSet<Attribute>();
 
 }
