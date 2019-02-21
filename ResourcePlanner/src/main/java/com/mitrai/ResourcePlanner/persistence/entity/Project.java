@@ -1,9 +1,8 @@
 package com.mitrai.ResourcePlanner.persistence.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class Project {
@@ -13,6 +12,28 @@ public class Project {
     private long id;
 
     private String title;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    private Set<ProjectNumber> projectNumbers=new HashSet<>();
+
+    @OneToMany(cascade = CascadeType.ALL)
+    private Set<ProjectVarchar> projectVarchars=new HashSet<>();
+
+    public Set<ProjectNumber> getProjectNumbers() {
+        return projectNumbers;
+    }
+
+    public void setProjectNumbers(Set<ProjectNumber> projectNumbers) {
+        this.projectNumbers = projectNumbers;
+    }
+
+    public Set<ProjectVarchar> getProjectVarchars() {
+        return projectVarchars;
+    }
+
+    public void setProjectVarchars(Set<ProjectVarchar> projectVarchars) {
+        this.projectVarchars = projectVarchars;
+    }
 
     public long getId() {
         return id;
