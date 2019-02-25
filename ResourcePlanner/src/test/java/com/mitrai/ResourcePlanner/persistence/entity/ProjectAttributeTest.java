@@ -22,7 +22,7 @@ public class ProjectAttributeTest {
         ProjectAttribute projectAttribute=new ProjectAttribute();
         projectAttribute.setLabel("email");
         projectAttribute.setDefaultValue("default@gmail.com");
-        projectAttribute.setType("varchar");
+        projectAttribute.setDataType(DataType.VARCHAR);
         ProjectAttribute projectAttributeSaved=projectAttributeService.save(projectAttribute);
         Assert.assertSame(projectAttribute,projectAttributeSaved);
     }

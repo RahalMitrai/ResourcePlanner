@@ -39,31 +39,42 @@ public class ProjectVarcharTest {
         ProjectAttribute projectAttribute=new ProjectAttribute();
         projectAttribute.setLabel("region");
         projectAttribute.setDefaultValue("UK");
-        projectAttribute.setType("varchar");
+        projectAttribute.setDataType(DataType.VARCHAR);
         ProjectAttribute projectAttributeSaved= projectAttributeService.save(projectAttribute);
         Assert.assertSame(projectAttribute,projectAttributeSaved);
         long projectAttributeId=projectAttributeSaved.getId();
 
-        ProjectFieldValueIdentity projectFieldValueIdentity=new ProjectFieldValueIdentity(projectId,projectAttributeId);
+
         ProjectVarchar projectVarchar=new ProjectVarchar();
         projectVarchar.setValue("dineth@gmail.com");
-        projectVarchar.setProjectFieldValueIdentity(projectFieldValueIdentity);
         ProjectVarchar projectVarcharSaved=projectVarcharService.save(projectVarchar);
         Assert.assertSame(projectVarchar.getValue(),projectVarcharSaved.getValue());
-        ProjectFieldValueIdentity projectFieldValueIdentitySaved= projectVarchar.getProjectFieldValueIdentity();
-        long projectSavedId = projectFieldValueIdentitySaved.getProjectId();
-        long projectSavedAttributeId = projectFieldValueIdentitySaved.getProjectAttributeId();
-        assertEquals(projectId,projectSavedId);
-        assertEquals(projectAttributeId,projectSavedAttributeId);
     }
 
     @Test
     public void createProjectWithValues(){
 
+        ProjectAttribute projectAttribute1=new ProjectAttribute();
+        projectAttribute1.setDataType(DataType.VARCHAR);
+        projectAttribute1.setLabel("firstName");
+        projectAttribute1.setDefaultValue(null);
+
+        ProjectAttribute projectAttribute2=new ProjectAttribute();
+        projectAttribute2.setDataType(DataType.VARCHAR);
+        projectAttribute2.setLabel("lastName");
+        projectAttribute2.setDefaultValue(null);
+
+        ProjectAttribute projectAttribute3=new ProjectAttribute();
+        projectAttribute3.setDataType(DataType.VARCHAR);
+        projectAttribute3.setLabel("email");
+        projectAttribute3.setDefaultValue(null);
+
         ProjectVarchar projectVarchar1=new ProjectVarchar();
-        projectVarchar1.setValue("test1@gmail.com");
+        projectVarchar1.setValue("abc");
+
         ProjectVarchar projectVarchar2=new ProjectVarchar();
-        projectVarchar2.setValue("test2@gmail.com");
+        projectVarchar2.setValue("bcd");
+
         ProjectVarchar projectVarchar3=new ProjectVarchar();
         projectVarchar3.setValue("test3@gmail.com");
 
@@ -72,8 +83,11 @@ public class ProjectVarcharTest {
         projectVarchars.add(projectVarchar2);
         projectVarchars.add(projectVarchar3);
 
+        ProjectAttribute projectAttribute=new ProjectAttribute();
+
+
         Project project = new Project();
-        project.setTitle("chrities");
+        project.setTitle("christies");
         projectService.save(project);
 
 

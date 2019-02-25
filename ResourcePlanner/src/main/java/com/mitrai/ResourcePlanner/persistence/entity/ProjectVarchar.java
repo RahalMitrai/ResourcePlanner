@@ -1,29 +1,19 @@
 package com.mitrai.ResourcePlanner.persistence.entity;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import javax.persistence.*;
 
 @Entity
+@Getter @Setter @NoArgsConstructor
 public class ProjectVarchar {
 
-    @EmbeddedId
-    private ProjectFieldValueIdentity projectFieldValueIdentity;
+    @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    private long id;
 
     private String value;
 
-
-    public String getValue() {
-        return value;
-    }
-
-    public void setValue(String value) {
-        this.value = value;
-    }
-
-    public ProjectFieldValueIdentity getProjectFieldValueIdentity() {
-        return projectFieldValueIdentity;
-    }
-
-    public void setProjectFieldValueIdentity(ProjectFieldValueIdentity projectFieldValueIdentity) {
-        this.projectFieldValueIdentity = projectFieldValueIdentity;
-    }
 }

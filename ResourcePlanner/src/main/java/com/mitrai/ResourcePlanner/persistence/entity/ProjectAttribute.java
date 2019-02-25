@@ -1,11 +1,17 @@
 package com.mitrai.ResourcePlanner.persistence.entity;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-public class ProjectAttribute {
+@Getter @Setter @NoArgsConstructor
+public class ProjectAttribute implements Serializable {
 
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -15,59 +21,12 @@ public class ProjectAttribute {
 
     private String defaultValue;
 
-    private String type;
+    private DataType dataType;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    /*@OneToMany(cascade = CascadeType.ALL)
     private Set<ProjectNumber> projectNumbers=new HashSet<>();
 
     @OneToMany(cascade = CascadeType.ALL)
     private Set<ProjectVarchar> projectVarchars=new HashSet<>();
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getLabel() {
-        return label;
-    }
-
-    public void setLabel(String label) {
-        this.label = label;
-    }
-
-    public String getDefaultValue() {
-        return defaultValue;
-    }
-
-    public void setDefaultValue(String defaultValue) {
-        this.defaultValue = defaultValue;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public Set<ProjectNumber> getProjectNumbers() {
-        return projectNumbers;
-    }
-
-    public void setProjectNumbers(Set<ProjectNumber> projectNumbers) {
-        this.projectNumbers = projectNumbers;
-    }
-
-    public Set<ProjectVarchar> getProjectVarchars() {
-        return projectVarchars;
-    }
-
-    public void setProjectVarchars(Set<ProjectVarchar> projectVarchars) {
-        this.projectVarchars = projectVarchars;
-    }
+*/
 }

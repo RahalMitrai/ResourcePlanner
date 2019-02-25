@@ -1,53 +1,30 @@
 package com.mitrai.ResourcePlanner.persistence.entity;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-public class Project {
+@Getter @Setter @NoArgsConstructor
+public class Project implements Serializable {
 
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private long id;
 
     private String title;
+    private static final long serialVersionUID = 1L;
 
-    @OneToMany(cascade = CascadeType.ALL)
+   /* @OneToMany(cascade = CascadeType.ALL)
     private Set<ProjectNumber> projectNumbers=new HashSet<>();
 
     @OneToMany(cascade = CascadeType.ALL)
     private Set<ProjectVarchar> projectVarchars=new HashSet<>();
+    */
 
-    public Set<ProjectNumber> getProjectNumbers() {
-        return projectNumbers;
-    }
-
-    public void setProjectNumbers(Set<ProjectNumber> projectNumbers) {
-        this.projectNumbers = projectNumbers;
-    }
-
-    public Set<ProjectVarchar> getProjectVarchars() {
-        return projectVarchars;
-    }
-
-    public void setProjectVarchars(Set<ProjectVarchar> projectVarchars) {
-        this.projectVarchars = projectVarchars;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
 }
