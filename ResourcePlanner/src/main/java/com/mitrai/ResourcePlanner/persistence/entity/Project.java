@@ -17,6 +17,7 @@ public class Project implements Serializable {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private long id;
 
+    private String refId;
     private String title;
     private static final long serialVersionUID = 1L;
 

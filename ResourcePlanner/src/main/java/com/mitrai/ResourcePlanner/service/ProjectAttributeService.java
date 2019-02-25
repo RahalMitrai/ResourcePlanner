@@ -1,5 +1,6 @@
 package com.mitrai.ResourcePlanner.service;
 
+import com.mitrai.ResourcePlanner.model.ProjectAttributeModel;
 import com.mitrai.ResourcePlanner.persistence.entity.ProjectAttribute;
 
 import java.util.List;
@@ -13,5 +14,9 @@ public interface ProjectAttributeService {
 
     List<ProjectAttribute> findAll();
 
-    void delete(long id);
+    ProjectAttribute findByRefId(String refId);
+
+    void delete(String refId) throws Exception;
+
+    void update(String refId, ProjectAttributeModel projectAttributeModel) throws Exception;
 }

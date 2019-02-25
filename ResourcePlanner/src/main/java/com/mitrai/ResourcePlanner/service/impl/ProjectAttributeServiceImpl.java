@@ -1,13 +1,16 @@
 package com.mitrai.ResourcePlanner.service.impl;
 
+import com.mitrai.ResourcePlanner.model.ProjectAttributeModel;
 import com.mitrai.ResourcePlanner.persistence.entity.ProjectAttribute;
 import com.mitrai.ResourcePlanner.persistence.repository.ProjectAttributeRepository;
 import com.mitrai.ResourcePlanner.service.ProjectAttributeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class ProjectAttributeServiceImpl implements ProjectAttributeService {
@@ -16,6 +19,7 @@ public class ProjectAttributeServiceImpl implements ProjectAttributeService {
     private ProjectAttributeRepository projectAttributeRepository;
 
     public ProjectAttribute save(ProjectAttribute projectAttribute) {
+        projectAttribute.setRefId(UUID.randomUUID().toString());
         return projectAttributeRepository.save(projectAttribute);
     }
 
@@ -30,7 +34,28 @@ public class ProjectAttributeServiceImpl implements ProjectAttributeService {
     }
 
     @Override
-    public void delete(long id) {
-        projectAttributeRepository.deleteById(id);
+    public ProjectAttribute findByRefId(String refId) {
+        return projectAttributeRepository.findByRefId(refId);
+    }
+
+    @Transactional
+    public void delete(String refId) throws Exception {
+        ProjectAttribute projectAttribute=projectAttributeRepository.findByRefId(refId);
+        if(projectAttribute==null){
+           throw new Exception("Project attribute does not exist");
+        }
+        projectAttributeRepository.deleteById(projectAttribute.getId());
+    }
+
+    @Transactional
+    public void update(String refId, ProjectAttributeModel projectAttributeModel) throws Exception{
+        ProjectAttribute projectAttribute=projectAttributeRepository.findByRefId(refId);
+        if(projectAttribute==null){
+            throw new Exception("Project attribute does not exist");
+        }
+        projectAttribute.setDataType(projectAttributeModel.getDataType());
+        projectAttribute.setDefaultValue(projectAttributeModel.getDefaultValue());
+        projectAttribute.setLabel(projectAttributeModel.getLabel());
+        projectAttributeRepository.save(projectAttribute);
     }
 }

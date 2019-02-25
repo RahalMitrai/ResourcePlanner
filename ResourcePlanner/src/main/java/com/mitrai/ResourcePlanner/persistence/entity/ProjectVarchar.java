@@ -16,4 +16,8 @@ public class ProjectVarchar {
 
     private String value;
 
+    private long projectId;
+
+    private long projectAttributeId;
+
 }

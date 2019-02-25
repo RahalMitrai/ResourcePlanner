@@ -1,4 +1,4 @@
-package com.mitrai.ResourcePlanner.api.dto;
+package com.mitrai.ResourcePlanner.model;
 
 import com.mitrai.ResourcePlanner.persistence.entity.Project;
 import lombok.Getter;
@@ -9,7 +9,7 @@ import javax.validation.constraints.NotNull;
 import java.util.Map;
 
 @Getter @Setter @NoArgsConstructor
-public class ProjectDTO {
+public class ProjectModel {
 
     @NotNull
     private String title;

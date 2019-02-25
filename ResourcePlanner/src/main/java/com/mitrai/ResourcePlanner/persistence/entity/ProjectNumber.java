@@ -17,4 +17,7 @@ public class ProjectNumber implements Serializable {
 
     private int value;
 
+    private long projectId;
+
+    private long projectAttributeId;
 }

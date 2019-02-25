@@ -8,4 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Repository
 @Transactional
 public  interface ProjectAttributeRepository extends CrudRepository<ProjectAttribute, Long> {
+
+    ProjectAttribute findByRefId(String refId);
 }
