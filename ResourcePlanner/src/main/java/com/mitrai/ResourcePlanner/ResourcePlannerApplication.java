@@ -12,7 +12,7 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 import com.mitrai.ResourcePlanner.config.CustomRoutingDataSource;
 
-@SpringBootApplication(exclude = {DataSourceAutoConfiguration.class})
+@SpringBootApplication(exclude = {DataSourceAutoConfiguration.class} ,scanBasePackages = { "com.mitrai" })
 public class ResourcePlannerApplication {
 
 	public static void main(String[] args) {

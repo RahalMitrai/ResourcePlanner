@@ -40,18 +40,21 @@ public class ProjectAttributeController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public List<ProjectAttribute> getAllProjectsAttribute(){
+    public ResponseEntity<Response>  getAllProjectsAttribute(){
         List<ProjectAttribute> projectAttributes=projectAttributeService.findAll();
-        return projectAttributes;
+        Response response=new Response();
+        response.setMessage("project attributes");
+        response.setData( projectAttributes);
+        return new ResponseEntity<>(response,HttpStatus.ACCEPTED);
     }
 
     @RequestMapping(value="/{id}",method=RequestMethod.PUT)
-    public ResponseEntity<String> update(@PathVariable("id") String id,@RequestBody ProjectAttributeDTO projectAttributeDTO) throws Exception {
+    public ResponseEntity<Response> update(@PathVariable("id") String id,@RequestBody ProjectAttributeDTO projectAttributeDTO) throws Exception {
         ProjectAttributeModel projectAttributeModel=modelMapper.map(projectAttributeDTO,ProjectAttributeModel.class);
-        projectAttributeService.update(id,projectAttributeModel);
+     // projectAttributeService.update(id,projectAttributeModel);
         Response response=new Response();
         response.setMessage("Sucessfully updated project attribute");
-        return new ResponseEntity<>("Sucessfully updated project attribute",HttpStatus.CREATED);
+        return new ResponseEntity<>(response,HttpStatus.CREATED);
     }
 
 }

@@ -48,14 +48,14 @@ public class ProjectAttributeServiceImpl implements ProjectAttributeService {
     }
 
     @Transactional
-    public void update(String refId, ProjectAttributeModel projectAttributeModel) throws Exception{
-        ProjectAttribute projectAttribute=projectAttributeRepository.findByRefId(refId);
+    public void update(ProjectAttribute projectAttribute) throws Exception{
+        ProjectAttribute projectAttributeExist=projectAttributeRepository.findByRefId(projectAttribute.getRefId());
         if(projectAttribute==null){
             throw new Exception("Project attribute does not exist");
         }
-        projectAttribute.setDataType(projectAttributeModel.getDataType());
-        projectAttribute.setDefaultValue(projectAttributeModel.getDefaultValue());
-        projectAttribute.setLabel(projectAttributeModel.getLabel());
+        projectAttributeExist.setDataType(projectAttribute.getDataType());
+        projectAttributeExist.setDefaultValue(projectAttribute.getDefaultValue());
+        projectAttributeExist.setLabel(projectAttribute.getLabel());
         projectAttributeRepository.save(projectAttribute);
     }
 }
