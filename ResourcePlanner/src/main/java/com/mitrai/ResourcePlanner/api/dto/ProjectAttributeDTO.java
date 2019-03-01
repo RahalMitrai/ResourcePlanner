@@ -10,6 +10,7 @@ public class ProjectAttributeDTO {
 
     private String label;
 
+    private String refId;
 
     private DataType dataType;
 

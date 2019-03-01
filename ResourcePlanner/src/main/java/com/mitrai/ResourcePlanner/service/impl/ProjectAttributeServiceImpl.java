@@ -4,6 +4,7 @@ import com.mitrai.ResourcePlanner.model.ProjectAttributeModel;
 import com.mitrai.ResourcePlanner.persistence.entity.ProjectAttribute;
 import com.mitrai.ResourcePlanner.persistence.repository.ProjectAttributeRepository;
 import com.mitrai.ResourcePlanner.service.ProjectAttributeService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,7 +19,11 @@ public class ProjectAttributeServiceImpl implements ProjectAttributeService {
     @Autowired
     private ProjectAttributeRepository projectAttributeRepository;
 
-    public ProjectAttribute save(ProjectAttribute projectAttribute) {
+    @Autowired
+    private ModelMapper modelMapper;
+
+    public ProjectAttribute save(ProjectAttributeModel projectAttributeModel) {
+        ProjectAttribute projectAttribute=modelMapper.map(projectAttributeModel,ProjectAttribute.class);
         projectAttribute.setRefId(UUID.randomUUID().toString());
         return projectAttributeRepository.save(projectAttribute);
     }
@@ -48,14 +53,14 @@ public class ProjectAttributeServiceImpl implements ProjectAttributeService {
     }
 
     @Transactional
-    public void update(ProjectAttribute projectAttribute) throws Exception{
-        ProjectAttribute projectAttributeExist=projectAttributeRepository.findByRefId(projectAttribute.getRefId());
-        if(projectAttribute==null){
+    public void update(ProjectAttributeModel projectAttributeModel) throws Exception{
+        ProjectAttribute projectAttributeExist=projectAttributeRepository.findByRefId(projectAttributeModel.getRefId());
+        if(projectAttributeExist==null){
             throw new Exception("Project attribute does not exist");
         }
-        projectAttributeExist.setDataType(projectAttribute.getDataType());
-        projectAttributeExist.setDefaultValue(projectAttribute.getDefaultValue());
-        projectAttributeExist.setLabel(projectAttribute.getLabel());
-        projectAttributeRepository.save(projectAttribute);
+        projectAttributeExist.setDataType(projectAttributeModel.getDataType());
+        projectAttributeExist.setDefaultValue(projectAttributeModel.getDefaultValue());
+        projectAttributeExist.setLabel(projectAttributeModel.getLabel());
+        projectAttributeRepository.save(projectAttributeExist);
     }
 }

@@ -24,8 +24,8 @@ public class ProjectAttributeController {
 
     @RequestMapping(method=RequestMethod.POST)
     public ResponseEntity<Response> add(@RequestBody ProjectAttributeDTO projectAttributeDTO){
-        ProjectAttribute projectAttribute=modelMapper.map(projectAttributeDTO,ProjectAttribute.class);
-        projectAttributeService.save(projectAttribute);
+        ProjectAttributeModel projectAttributeModel=modelMapper.map(projectAttributeDTO,ProjectAttributeModel.class);
+        projectAttributeService.save(projectAttributeModel);
         Response response=new Response();
         response.setMessage("Sucessfully created project attribute");
         return new ResponseEntity<>(response,HttpStatus.CREATED);
@@ -48,12 +48,12 @@ public class ProjectAttributeController {
         return new ResponseEntity<>(response,HttpStatus.ACCEPTED);
     }
 
-    @RequestMapping(value="/{id}",method=RequestMethod.PUT)
-    public ResponseEntity<Response> update(@PathVariable("id") String id,@RequestBody ProjectAttributeDTO projectAttributeDTO) throws Exception {
+    @RequestMapping(method=RequestMethod.PUT)
+    public ResponseEntity<Response> update(@RequestBody ProjectAttributeDTO projectAttributeDTO) throws Exception {
         ProjectAttributeModel projectAttributeModel=modelMapper.map(projectAttributeDTO,ProjectAttributeModel.class);
-     // projectAttributeService.update(id,projectAttributeModel);
+        projectAttributeService.update(projectAttributeModel);
         Response response=new Response();
-        response.setMessage("Sucessfully updated project attribute");
+        response.setMessage("Success fully updated project attribute");
         return new ResponseEntity<>(response,HttpStatus.CREATED);
     }
 

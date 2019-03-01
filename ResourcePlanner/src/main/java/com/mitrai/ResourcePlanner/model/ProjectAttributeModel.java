@@ -7,8 +7,10 @@ import lombok.Setter;
 
 @Getter @Setter @NoArgsConstructor
 public class ProjectAttributeModel {
+
     private String label;
 
+    private String refId;
 
     private DataType dataType;
 

@@ -8,7 +8,7 @@ import java.util.Optional;
 
 public interface ProjectAttributeService {
 
-    ProjectAttribute save(ProjectAttribute attribute);
+    ProjectAttribute save(ProjectAttributeModel projectAttributeModel);
 
     Optional<ProjectAttribute> findById(long id);
 
@@ -18,5 +18,5 @@ public interface ProjectAttributeService {
 
     void delete(String refId) throws Exception;
 
-    void update(ProjectAttribute projectAttribute) throws Exception;
+    void update(ProjectAttributeModel projectAttributeModel) throws Exception;
 }
