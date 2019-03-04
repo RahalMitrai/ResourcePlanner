@@ -47,7 +47,7 @@
 			"currentHelper": "normal",
 			"helperAttributes": {},
 			"time": 1551354737447,
-			"name": "create project",
+			"name": "update  project",
 			"description": "",
 			"collectionId": "120c6a06-9a90-27fa-43f0-aff2f4d3cfd8",
 			"responses": [],
@@ -107,7 +107,7 @@
 					"enabled": true
 				}
 			],
-			"url": "localhost:8090/rp/projectAttribute/9100a18f-c17c-48bb-9ef6-673f21346a9b",
+			"url": "localhost:8090/rp/projectAttribute",
 			"queryParams": [],
 			"preRequestScript": null,
 			"pathVariables": {},
@@ -119,12 +119,12 @@
 			"tests": null,
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1551122020782,
+			"time": 1551677167070,
 			"name": "update project_attribute",
 			"description": "",
 			"collectionId": "120c6a06-9a90-27fa-43f0-aff2f4d3cfd8",
 			"responses": [],
-			"rawModeData": " {\n        \"label\": \"email\",\n        \"defaultValue\": \"defaupppop@gmail.com\",\n        \"dataType\": \"VARCHAR\"\n}"
+			"rawModeData": " {\n       \n        \"label\": \"emaillllllllllllll\",\n        \"defaultValue\": \"defaupppop@gmail.com\",\n        \"refId\":\"1baa3309-be9a-416f-84b4-59c547826c2b\",\n        \"dataType\": \"VARCHAR\"\n}"
 		},
 		{
 			"id": "79772dff-fca9-68ee-7f8f-36488502e04f",
@@ -155,7 +155,7 @@
 			"currentHelper": "normal",
 			"helperAttributes": {},
 			"time": 1551354739233,
-			"name": "update project",
+			"name": "create project",
 			"description": "",
 			"collectionId": "120c6a06-9a90-27fa-43f0-aff2f4d3cfd8",
 			"responses": [],
@@ -255,12 +255,12 @@
 			"tests": null,
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1551122011748,
+			"time": 1551418695551,
 			"name": "add project_attribute",
 			"description": "",
 			"collectionId": "120c6a06-9a90-27fa-43f0-aff2f4d3cfd8",
 			"responses": [],
-			"rawModeData": "{\n\t\"label\":\"attribute4\",\n\t\"dataType\":\"VARCHAR\",\n\t\"defaultValue\":\"abfgtc\"\n}"
+			"rawModeData": "{\n\t\"label\":\"attributeDineth\",\n\t\"dataType\":\"VARCHAR\",\n\t\"defaultValue\":\"abfgtc\"\n}"
 		}
 	]
 }
