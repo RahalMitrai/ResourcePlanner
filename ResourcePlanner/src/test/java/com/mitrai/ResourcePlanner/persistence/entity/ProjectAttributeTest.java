@@ -1,22 +1,21 @@
 package com.mitrai.ResourcePlanner.persistence.entity;
 
+import com.mitrai.ResourcePlanner.model.ProjectAttributeModel;
 import com.mitrai.ResourcePlanner.service.ProjectAttributeService;
-import org.junit.Assert;
-import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import java.util.UUID;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest
 public class ProjectAttributeTest {
 
-    @Autowired
+   /* @Autowired
     private ProjectAttributeService projectAttributeService;
+
+    @private ModelMapper modelMapper;
 
     @Test
     public void createProjectAttribute(){
@@ -58,7 +57,11 @@ public class ProjectAttributeTest {
     public void updateProjectAttribute(){
         try{
             //create new project
-            ProjectAttribute projectAttribute=new ProjectAttribute();
+            ProjectAttributeModel projectAttributeModel=new ProjectAttributeModel();
+            projectAttributeModel.setLabel("region_update_test");
+            projectAttributeModel.setDefaultValue("UK");
+            projectAttributeModel.setDataType(DataType.VARCHAR);
+            ProjectAttribute projectAttribute=modelMapper.map(projectAttributeModel,ProjectAttributeModel);
             String refId=UUID.randomUUID().toString();
             projectAttribute.setRefId(refId);
             projectAttribute.setLabel("region_update_test");
@@ -81,6 +84,6 @@ public class ProjectAttributeTest {
         }catch(Exception e){
             System.out.println(e);
         }
-    }
+    }*/
 
 }

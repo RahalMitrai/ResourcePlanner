@@ -1,5 +1,7 @@
 package com.mitrai.ResourcePlanner.api.controller;
 
+import com.mitrai.ResourcePlanner.config.CustomRoutingDataSource;
+import com.mitrai.ResourcePlanner.config.UtillConfiguration;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -7,18 +9,32 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.MockitoAnnotations;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+
 
 @RunWith(SpringRunner.class)
-
+@ContextConfiguration(classes = {CustomRoutingDataSource.class,UtillConfiguration.class})
+@WebMvcTest(value = ProjectController.class, secure = false)
 public class ProjectControllerTest {
 
     private static final String NEW_PROJECT = "/";
+
+    @Autowired
+    private MockMvc mockMvc;
+
+    @Before
+    public void setup() {
+        MockitoAnnotations.initMocks(this);
+    }
 
 
 
@@ -27,9 +43,10 @@ public class ProjectControllerTest {
         JSONObject requestObject=getCreateProjectJsonBody();
         System.out.println(requestObject.toString());
 
-        RequestBuilder requestBuilderCompleteReq =
-                MockMvcRequestBuilders.post(NEW_PROJECT).contentType(MediaType.APPLICATION_JSON)
-                        .content(requestObject.toString());
+        mockMvc.perform(post(NEW_PROJECT).content(requestObject.toString()).header("tenantId","tenantId1"));
+       /* RequestBuilder requestBuilderCompleteReq =
+                post(NEW_PROJECT).contentType(MediaType.APPLICATION_JSON)
+                        .content(requestObject.toString());*/
 
     }
 

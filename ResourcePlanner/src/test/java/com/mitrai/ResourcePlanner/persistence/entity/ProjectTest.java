@@ -20,7 +20,7 @@ import java.util.UUID;
 @SpringBootTest
 public class ProjectTest {
 
-    @Autowired
+   /* @Autowired
     private ProjectService projectService;
 
     @Autowired
@@ -93,5 +93,5 @@ public class ProjectTest {
         }catch(Exception e){
             System.out.println(e);
         }
-    }
+    }*/
 }
