@@ -1,5 +1,6 @@
 package com.mitrai.ResourcePlanner.service.impl;
 
+import com.mitrai.ResourcePlanner.exception.ResourcePlannerException;
 import com.mitrai.ResourcePlanner.model.ProjectAttributeModel;
 import com.mitrai.ResourcePlanner.persistence.entity.ProjectAttribute;
 import com.mitrai.ResourcePlanner.persistence.repository.ProjectAttributeRepository;
@@ -44,19 +45,19 @@ public class ProjectAttributeServiceImpl implements ProjectAttributeService {
     }
 
     @Transactional
-    public void delete(String refId) throws Exception {
+    public void delete(String refId) {
         ProjectAttribute projectAttribute=projectAttributeRepository.findByRefId(refId);
         if(projectAttribute==null){
-           throw new Exception("Project attribute does not exist");
+           throw new ResourcePlannerException("Project attribute does not exist",10);
         }
         projectAttributeRepository.deleteById(projectAttribute.getId());
     }
 
     @Transactional
-    public void update(ProjectAttributeModel projectAttributeModel) throws Exception{
+    public void update(ProjectAttributeModel projectAttributeModel){
         ProjectAttribute projectAttributeExist=projectAttributeRepository.findByRefId(projectAttributeModel.getRefId());
         if(projectAttributeExist==null){
-            throw new Exception("Project attribute does not exist");
+            throw new ResourcePlannerException("Project attribute does not exist",10);
         }
         projectAttributeExist.setDataType(projectAttributeModel.getDataType());
         projectAttributeExist.setDefaultValue(projectAttributeModel.getDefaultValue());

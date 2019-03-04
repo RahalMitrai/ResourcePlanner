@@ -1,5 +1,6 @@
 package com.mitrai.ResourcePlanner.service.impl;
 
+import com.mitrai.ResourcePlanner.exception.ResourcePlannerException;
 import com.mitrai.ResourcePlanner.model.Attribute;
 import com.mitrai.ResourcePlanner.model.ProjectModel;
 import com.mitrai.ResourcePlanner.persistence.entity.CompositeProjectAttributeValueId;
@@ -15,8 +16,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 import java.util.UUID;
 
 @Service
@@ -35,7 +34,7 @@ public class ProjectServiceImpl implements ProjectService {
 
 
     @Override
-    public Project save(ProjectModel projectModel) throws Exception {
+    public Project save(ProjectModel projectModel) {
         List<Attribute> attributes=projectModel.getAttributes();
         Project project =projectModel.getProject();
         project.setRefId(UUID.randomUUID().toString());
@@ -49,7 +48,7 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public Project update(ProjectModel projectModel) throws Exception {
+    public Project update(ProjectModel projectModel){
 
         List<Attribute> attributes=projectModel.getAttributes();
         Project project =projectModel.getProject();
@@ -67,10 +66,10 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Transactional
-    public void delete(String id) throws Exception{
+    public void delete(String id){
         Project project = projectRepository.findByRefId(id);
         if(project==null){
-            throw new Exception("Project does not exist by id"+id);
+            throw new ResourcePlannerException("Project does not exist by id"+id,10);
         }
         projectRepository.deleteById(project.getId());
 
@@ -81,20 +80,20 @@ public class ProjectServiceImpl implements ProjectService {
         return (List<Project>) projectRepository.findAll();
     }
 
-    private ProjectAttribute isAttributeExist(String id) throws Exception {
+    private ProjectAttribute isAttributeExist(String id){
         ProjectAttribute projectAttribute=projectAttributeRepository.findByRefId(id);
 
         if(projectAttribute==null){
-            throw new Exception("Project id : "+id+"not exist");
+            throw new ResourcePlannerException("Project id : "+id+"not exist",10);
 
         }
         return projectAttribute;
     }
 
-    private Project isProjectExist(String id) throws Exception{
+    private Project isProjectExist(String id){
         Project project=projectRepository.findByRefId(id);
         if(project==null){
-            throw new Exception("Attribute id : "+id+"not exist");
+            throw new ResourcePlannerException("Attribute id : "+id+"not exist",10);
         }
         return project;
     }

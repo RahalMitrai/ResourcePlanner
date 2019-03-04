@@ -9,11 +9,11 @@ import java.util.List;
 
 public interface ProjectService {
 
-    Project save(ProjectModel projectModel) throws Exception;
+    Project save(ProjectModel projectModel);
 
-    Project update(ProjectModel projectModel) throws Exception;
+    Project update(ProjectModel projectModel);
 
-    void delete(String refId) throws Exception;
+    void delete(String refId);
 
     List<Project> findAll();
 }

@@ -32,7 +32,7 @@ public class ProjectAttributeController {
     }
 
     @RequestMapping(value="/{id}", method = RequestMethod.DELETE)
-    public ResponseEntity<Response> delete(@PathVariable("id") String id) throws Exception {
+    public ResponseEntity<Response> delete(@PathVariable("id") String id) {
         projectAttributeService.delete(id);
         Response response=new Response();
         response.setMessage("Sucessfully deleted project attribute");
@@ -49,7 +49,7 @@ public class ProjectAttributeController {
     }
 
     @RequestMapping(method=RequestMethod.PUT)
-    public ResponseEntity<Response> update(@RequestBody ProjectAttributeDTO projectAttributeDTO) throws Exception {
+    public ResponseEntity<Response> update(@RequestBody ProjectAttributeDTO projectAttributeDTO) {
         ProjectAttributeModel projectAttributeModel=modelMapper.map(projectAttributeDTO,ProjectAttributeModel.class);
         projectAttributeService.update(projectAttributeModel);
         Response response=new Response();

@@ -16,7 +16,7 @@ public interface ProjectAttributeService {
 
     ProjectAttribute findByRefId(String refId);
 
-    void delete(String refId) throws Exception;
+    void delete(String refId);
 
-    void update(ProjectAttributeModel projectAttributeModel) throws Exception;
+    void update(ProjectAttributeModel projectAttributeModel);
 }
