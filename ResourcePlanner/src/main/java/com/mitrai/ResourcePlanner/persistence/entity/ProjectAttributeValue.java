@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.UUID;
 
 @Entity
 @Getter @Setter @NoArgsConstructor
@@ -17,7 +18,7 @@ public class ProjectAttributeValue {
 
 
 
-    public ProjectAttributeValue(long projectId,long projectAttributeId,String value){
+    public ProjectAttributeValue(String projectId, String projectAttributeId, String value){
         this.compositeProjectAttributeValueId=new CompositeProjectAttributeValueId(projectId,projectAttributeId);
         this.value=value;
     }

@@ -2,8 +2,8 @@ package com.mitrai.ResourcePlanner.api.controller;
 
 import com.mitrai.ResourcePlanner.api.dto.ProjectDTO;
 import com.mitrai.ResourcePlanner.api.dto.Response;
-import com.mitrai.ResourcePlanner.model.ProjectModel;
-import com.mitrai.ResourcePlanner.persistence.entity.Project;
+import com.mitrai.ResourcePlanner.api.model.ProjectEntityModel;
+import com.mitrai.ResourcePlanner.api.model.ProjectModel;
 import com.mitrai.ResourcePlanner.service.ProjectService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 
@@ -25,7 +26,7 @@ public class ProjectController {
     private ModelMapper modelMapper;
 
     @RequestMapping(method=RequestMethod.POST)
-    public ResponseEntity<Response> add(@RequestBody ProjectDTO projectDTO) throws Exception {
+    public ResponseEntity<Response> add(@RequestBody @Valid ProjectDTO projectDTO){
         ProjectModel projectModel=modelMapper.map(projectDTO,ProjectModel.class);
         projectService.save(projectModel);
         Response response=new Response();
@@ -34,7 +35,7 @@ public class ProjectController {
     }
 
     @RequestMapping(method=RequestMethod.PUT)
-    public ResponseEntity<Response> update(@RequestBody ProjectDTO projectDTO) throws Exception{
+    public ResponseEntity<Response> update(@RequestBody ProjectDTO projectDTO){
         ProjectModel projectModel=modelMapper.map(projectDTO,ProjectModel.class);
         projectService.update(projectModel);
         Response response=new Response();
@@ -53,7 +54,7 @@ public class ProjectController {
 
     @RequestMapping(method=RequestMethod.GET)
     public ResponseEntity<Response> findAll(){
-        List<Project> projects=projectService.findAll();
+        List<ProjectEntityModel> projects=projectService.findAll();
         Response response=new Response();
         response.setMessage("project list");
         response.setData(projects);

@@ -1,16 +1,19 @@
-package com.mitrai.ResourcePlanner.model;
+package com.mitrai.ResourcePlanner.api.model;
+
 
 import com.mitrai.ResourcePlanner.persistence.entity.DataType;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Getter @Setter @NoArgsConstructor
-public class ProjectAttributeModel {
+@Getter
+@Setter
+@NoArgsConstructor
+public class ProjectAttributeEntityModel {
 
     private String label;
 
-    private String refId;
+    private String id;
 
     private DataType dataType;
 

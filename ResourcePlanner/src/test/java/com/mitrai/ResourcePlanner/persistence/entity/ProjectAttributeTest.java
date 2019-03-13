@@ -1,6 +1,5 @@
 package com.mitrai.ResourcePlanner.persistence.entity;
 
-import com.mitrai.ResourcePlanner.model.ProjectAttributeModel;
 import com.mitrai.ResourcePlanner.service.ProjectAttributeService;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;

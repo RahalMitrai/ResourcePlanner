@@ -1,6 +1,7 @@
 package com.mitrai.ResourcePlanner.service;
 
-import com.mitrai.ResourcePlanner.model.ProjectModel;
+import com.mitrai.ResourcePlanner.api.model.ProjectEntityModel;
+import com.mitrai.ResourcePlanner.api.model.ProjectModel;
 import com.mitrai.ResourcePlanner.persistence.entity.Project;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +14,7 @@ public interface ProjectService {
 
     Project update(ProjectModel projectModel);
 
-    void delete(String refId);
+    void delete(String id);
 
-    List<Project> findAll();
+    List<ProjectEntityModel> findAll();
 }

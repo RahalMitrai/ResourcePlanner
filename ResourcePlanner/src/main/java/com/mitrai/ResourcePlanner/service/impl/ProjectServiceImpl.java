@@ -1,9 +1,10 @@
 package com.mitrai.ResourcePlanner.service.impl;
 
-import com.mitrai.ResourcePlanner.exception.ResourcePlannerException;
-import com.mitrai.ResourcePlanner.model.Attribute;
-import com.mitrai.ResourcePlanner.model.ProjectModel;
-import com.mitrai.ResourcePlanner.persistence.entity.CompositeProjectAttributeValueId;
+import com.mitrai.ResourcePlanner.api.model.AttributeValueModel;
+import com.mitrai.ResourcePlanner.api.model.ProjectEntityModel;
+import com.mitrai.ResourcePlanner.api.model.ProjectModel;
+import com.mitrai.ResourcePlanner.exception.ProjectAttributeNotFoundException;
+import com.mitrai.ResourcePlanner.exception.ProjectNotFoundException;
 import com.mitrai.ResourcePlanner.persistence.entity.Project;
 import com.mitrai.ResourcePlanner.persistence.entity.ProjectAttribute;
 import com.mitrai.ResourcePlanner.persistence.entity.ProjectAttributeValue;
@@ -11,12 +12,14 @@ import com.mitrai.ResourcePlanner.persistence.repository.ProjectAttributeReposit
 import com.mitrai.ResourcePlanner.persistence.repository.ProjectRepository;
 import com.mitrai.ResourcePlanner.persistence.repository.ProjectAttributeValueRepository;
 import com.mitrai.ResourcePlanner.service.ProjectService;
+import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.lang.reflect.Type;
 import java.util.List;
-import java.util.UUID;
 
 @Service
 public class ProjectServiceImpl implements ProjectService {
@@ -32,15 +35,22 @@ public class ProjectServiceImpl implements ProjectService {
     @Autowired
     private ProjectAttributeRepository projectAttributeRepository;
 
+    @Autowired
+    private ModelMapper modelMapper;
+
+
 
     @Override
+    @Transactional
     public Project save(ProjectModel projectModel) {
-        List<Attribute> attributes=projectModel.getAttributes();
-        Project project =projectModel.getProject();
-        project.setRefId(UUID.randomUUID().toString());
+        List<AttributeValueModel> attributes=projectModel.getAttributesValues();
+        ProjectEntityModel projectEntityModel =projectModel.getProjectEntity();
+        Project project=modelMapper.map(projectEntityModel,Project.class);
+
+
         Project projectSaved=projectRepository.save(project);
-        for(Attribute attribute:attributes){
-            ProjectAttribute projectAttribute= isAttributeExist(attribute.getRefId());
+        for(AttributeValueModel attribute:attributes){
+            ProjectAttribute projectAttribute= isAttributeExist(attribute.getId());
             ProjectAttributeValue projectAttributeValue=new ProjectAttributeValue(projectSaved.getId(),projectAttribute.getId(),attribute.getValue());
             projectAttributeValueRepository.save(projectAttributeValue);
         }
@@ -48,16 +58,19 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
+    @Transactional
     public Project update(ProjectModel projectModel){
 
-        List<Attribute> attributes=projectModel.getAttributes();
-        Project project =projectModel.getProject();
+        List<AttributeValueModel> attributes=projectModel.getAttributesValues();
+        ProjectEntityModel projectEntityModel =projectModel.getProjectEntity();
+        Project project=modelMapper.map(projectEntityModel,Project.class);
 
-        Project project1=isProjectExist(project.getRefId());
+
+        Project project1=isProjectExist(project.getId());
         project.setId(project1.getId());
         Project projectSaved=projectRepository.save(project);
-        for(Attribute attribute:attributes){
-            ProjectAttribute projectAttribute= isAttributeExist(attribute.getRefId());
+        for(AttributeValueModel attribute:attributes){
+            ProjectAttribute projectAttribute= isAttributeExist(attribute.getId());
             ProjectAttributeValue projectAttributeValue=new ProjectAttributeValue(project1.getId(),projectAttribute.getId(),attribute.getValue());
             projectAttributeValueRepository.save(projectAttributeValue);
         }
@@ -67,33 +80,36 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Transactional
     public void delete(String id){
-        Project project = projectRepository.findByRefId(id);
+        Project project = projectRepository.findById(id);
         if(project==null){
-            throw new ResourcePlannerException("Project does not exist by id"+id,10);
+            throw new ProjectNotFoundException("Project does not exist by id"+id,10);
         }
         projectRepository.deleteById(project.getId());
 
     }
 
     @Override
-    public List<Project> findAll() {
-        return (List<Project>) projectRepository.findAll();
+    public List<ProjectEntityModel> findAll() {
+        List<Project> projects= (List<Project>) projectRepository.findAll();
+        Type prjectEntityModelListType=new TypeToken<List<ProjectEntityModel>>(){}.getType();
+        List<ProjectEntityModel> projectEntityModels= modelMapper.map(projects,prjectEntityModelListType);
+        return projectEntityModels;
     }
 
     private ProjectAttribute isAttributeExist(String id){
-        ProjectAttribute projectAttribute=projectAttributeRepository.findByRefId(id);
+        ProjectAttribute projectAttribute=projectAttributeRepository.findById(id);
 
         if(projectAttribute==null){
-            throw new ResourcePlannerException("Project id : "+id+"not exist",10);
+            throw new ProjectNotFoundException("Attribute id : "+id+"not exist",10);
 
         }
         return projectAttribute;
     }
 
     private Project isProjectExist(String id){
-        Project project=projectRepository.findByRefId(id);
+        Project project=projectRepository.findById(id);
         if(project==null){
-            throw new ResourcePlannerException("Attribute id : "+id+"not exist",10);
+            throw new ProjectAttributeNotFoundException("Attribute id : "+id+"not exist",10);
         }
         return project;
     }

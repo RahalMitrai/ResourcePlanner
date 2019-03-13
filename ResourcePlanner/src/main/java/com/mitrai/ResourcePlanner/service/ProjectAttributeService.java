@@ -1,22 +1,23 @@
 package com.mitrai.ResourcePlanner.service;
 
-import com.mitrai.ResourcePlanner.model.ProjectAttributeModel;
+import com.mitrai.ResourcePlanner.api.model.ProjectAttributeEntityModel;
 import com.mitrai.ResourcePlanner.persistence.entity.ProjectAttribute;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 public interface ProjectAttributeService {
 
-    ProjectAttribute save(ProjectAttributeModel projectAttributeModel);
+    ProjectAttribute save(ProjectAttributeEntityModel projectAttribute);
 
-    Optional<ProjectAttribute> findById(long id);
+    Optional<ProjectAttribute> findOneById(String id);
 
-    List<ProjectAttribute> findAll();
+    List<ProjectAttributeEntityModel> findAll();
 
-    ProjectAttribute findByRefId(String refId);
+    ProjectAttribute findById(String id);
 
-    void delete(String refId);
+    void delete(String id);
 
-    void update(ProjectAttributeModel projectAttributeModel);
+    void update(ProjectAttributeEntityModel projectAttributeModel);
 }

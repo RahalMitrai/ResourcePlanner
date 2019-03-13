@@ -2,8 +2,7 @@ package com.mitrai.ResourcePlanner.api.controller;
 
 import com.mitrai.ResourcePlanner.api.dto.ProjectAttributeDTO;
 import com.mitrai.ResourcePlanner.api.dto.Response;
-import com.mitrai.ResourcePlanner.model.ProjectAttributeModel;
-import com.mitrai.ResourcePlanner.persistence.entity.ProjectAttribute;
+import com.mitrai.ResourcePlanner.api.model.ProjectAttributeEntityModel;
 import com.mitrai.ResourcePlanner.service.ProjectAttributeService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/projectAttribute")
@@ -24,15 +24,15 @@ public class ProjectAttributeController {
 
     @RequestMapping(method=RequestMethod.POST)
     public ResponseEntity<Response> add(@RequestBody ProjectAttributeDTO projectAttributeDTO){
-        ProjectAttributeModel projectAttributeModel=modelMapper.map(projectAttributeDTO,ProjectAttributeModel.class);
-        projectAttributeService.save(projectAttributeModel);
+        ProjectAttributeEntityModel projectAttribute=modelMapper.map(projectAttributeDTO,ProjectAttributeEntityModel.class);
+        projectAttributeService.save(projectAttribute);
         Response response=new Response();
         response.setMessage("Sucessfully created project attribute");
         return new ResponseEntity<>(response,HttpStatus.CREATED);
     }
 
     @RequestMapping(value="/{id}", method = RequestMethod.DELETE)
-    public ResponseEntity<Response> delete(@PathVariable("id") String id) {
+    public ResponseEntity<Response> delete(@PathVariable("id") String  id) {
         projectAttributeService.delete(id);
         Response response=new Response();
         response.setMessage("Sucessfully deleted project attribute");
@@ -41,7 +41,7 @@ public class ProjectAttributeController {
 
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<Response>  getAllProjectsAttribute(){
-        List<ProjectAttribute> projectAttributes=projectAttributeService.findAll();
+        List<ProjectAttributeEntityModel> projectAttributes=projectAttributeService.findAll();
         Response response=new Response();
         response.setMessage("project attributes");
         response.setData( projectAttributes);
@@ -50,7 +50,7 @@ public class ProjectAttributeController {
 
     @RequestMapping(method=RequestMethod.PUT)
     public ResponseEntity<Response> update(@RequestBody ProjectAttributeDTO projectAttributeDTO) {
-        ProjectAttributeModel projectAttributeModel=modelMapper.map(projectAttributeDTO,ProjectAttributeModel.class);
+        ProjectAttributeEntityModel projectAttributeModel=modelMapper.map(projectAttributeDTO,ProjectAttributeEntityModel.class);
         projectAttributeService.update(projectAttributeModel);
         Response response=new Response();
         response.setMessage("Success fully updated project attribute");

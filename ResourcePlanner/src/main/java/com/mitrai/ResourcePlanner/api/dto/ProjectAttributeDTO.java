@@ -5,12 +5,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.UUID;
+
 @Getter @Setter @NoArgsConstructor
 public class ProjectAttributeDTO {
 
     private String label;
 
-    private String refId;
+    private UUID id;
 
     private DataType dataType;
 

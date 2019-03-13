@@ -4,18 +4,19 @@ package com.mitrai.ResourcePlanner.persistence.entity;
 import javax.persistence.Embeddable;
 import java.io.Serializable;
 import java.util.Objects;
+import java.util.UUID;
 
 @Embeddable
 public class CompositeProjectAttributeValueId implements Serializable {
 
-    private long projectId;
-    private long projectAttributeId;
+    private String projectId;
+    private String projectAttributeId;
 
     public CompositeProjectAttributeValueId(){
 
     }
 
-    public CompositeProjectAttributeValueId(long projectId, long attributeId){
+    public CompositeProjectAttributeValueId(String projectId, String attributeId){
         this.projectId=projectId;
         this.projectAttributeId=attributeId;
 

@@ -15,11 +15,9 @@ import java.util.UUID;
 @Getter @Setter @NoArgsConstructor
 public class ProjectAttribute implements Serializable {
 
-    @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private long id;
-
-    private String refId;
+    @Id @GeneratedValue(generator="system-uuid")
+    @GenericGenerator(name="system-uuid", strategy = "uuid2")
+    private String id;
 
     private String label;
 

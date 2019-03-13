@@ -1,18 +1,19 @@
 package com.mitrai.ResourcePlanner.service.impl;
 
-import com.mitrai.ResourcePlanner.exception.ResourcePlannerException;
-import com.mitrai.ResourcePlanner.model.ProjectAttributeModel;
+import com.mitrai.ResourcePlanner.api.model.ProjectAttributeEntityModel;
+import com.mitrai.ResourcePlanner.exception.ProjectAttributeNotFoundException;
 import com.mitrai.ResourcePlanner.persistence.entity.ProjectAttribute;
 import com.mitrai.ResourcePlanner.persistence.repository.ProjectAttributeRepository;
 import com.mitrai.ResourcePlanner.service.ProjectAttributeService;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.lang.reflect.Type;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 @Service
 public class ProjectAttributeServiceImpl implements ProjectAttributeService {
@@ -23,41 +24,44 @@ public class ProjectAttributeServiceImpl implements ProjectAttributeService {
     @Autowired
     private ModelMapper modelMapper;
 
-    public ProjectAttribute save(ProjectAttributeModel projectAttributeModel) {
-        ProjectAttribute projectAttribute=modelMapper.map(projectAttributeModel,ProjectAttribute.class);
-        projectAttribute.setRefId(UUID.randomUUID().toString());
+    @Transactional
+    public ProjectAttribute save(ProjectAttributeEntityModel projectAttributeEntityModel) {
+        ProjectAttribute projectAttribute=modelMapper.map(projectAttributeEntityModel,ProjectAttribute.class);
         return projectAttributeRepository.save(projectAttribute);
     }
 
     @Override
-    public Optional<ProjectAttribute> findById(long id) {
-      return projectAttributeRepository.findById(id);
+    public Optional<ProjectAttribute> findOneById(String id) {
+      return projectAttributeRepository.findOneById(id);
     }
 
     @Override
-    public List<ProjectAttribute> findAll() {
-        return (List<ProjectAttribute>) projectAttributeRepository.findAll();
+    public List<ProjectAttributeEntityModel> findAll() {
+        List<ProjectAttribute> projectAttributelist= (List<ProjectAttribute>) projectAttributeRepository.findAll();
+        Type projectEntityModelListType = new TypeToken<List<ProjectAttributeEntityModel>>(){}.getType();
+        List<ProjectAttributeEntityModel> projectAttributeEntityModelList=modelMapper.map(projectAttributelist,projectEntityModelListType);
+        return projectAttributeEntityModelList;
     }
 
     @Override
-    public ProjectAttribute findByRefId(String refId) {
-        return projectAttributeRepository.findByRefId(refId);
+    public ProjectAttribute  findById(String id) {
+        return projectAttributeRepository.findById(id);
     }
 
     @Transactional
-    public void delete(String refId) {
-        ProjectAttribute projectAttribute=projectAttributeRepository.findByRefId(refId);
+    public void delete(String id) {
+        ProjectAttribute projectAttribute=projectAttributeRepository.findById(id);
         if(projectAttribute==null){
-           throw new ResourcePlannerException("Project attribute does not exist",10);
+           throw new ProjectAttributeNotFoundException("Project attribute does not exist",10);
         }
         projectAttributeRepository.deleteById(projectAttribute.getId());
     }
 
     @Transactional
-    public void update(ProjectAttributeModel projectAttributeModel){
-        ProjectAttribute projectAttributeExist=projectAttributeRepository.findByRefId(projectAttributeModel.getRefId());
+    public void update(ProjectAttributeEntityModel projectAttributeModel){
+        ProjectAttribute projectAttributeExist=projectAttributeRepository.findById(projectAttributeModel.getId());
         if(projectAttributeExist==null){
-            throw new ResourcePlannerException("Project attribute does not exist",10);
+            throw new ProjectAttributeNotFoundException("Project attribute does not exist",10);
         }
         projectAttributeExist.setDataType(projectAttributeModel.getDataType());
         projectAttributeExist.setDefaultValue(projectAttributeModel.getDefaultValue());

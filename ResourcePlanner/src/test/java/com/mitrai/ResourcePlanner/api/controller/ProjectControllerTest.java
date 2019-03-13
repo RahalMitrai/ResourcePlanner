@@ -1,60 +1,94 @@
 package com.mitrai.ResourcePlanner.api.controller;
 
-import com.mitrai.ResourcePlanner.config.CustomRoutingDataSource;
-import com.mitrai.ResourcePlanner.config.UtillConfiguration;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.mitrai.ResourcePlanner.api.dto.ProjectDTO;
+import com.mitrai.ResourcePlanner.api.model.AttributeValueModel;
+import com.mitrai.ResourcePlanner.api.model.ProjectEntityModel;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.MockitoAnnotations;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.http.MediaType;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.RequestBuilder;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.context.WebApplicationContext;
 
 
-@RunWith(SpringRunner.class)
-@ContextConfiguration(classes = {CustomRoutingDataSource.class,UtillConfiguration.class})
-@WebMvcTest(value = ProjectController.class, secure = false)
-public class ProjectControllerTest {
+import javax.annotation.Resource;
 
-    private static final String NEW_PROJECT = "/";
+import java.util.ArrayList;
 
-    @Autowired
+
+
+
+public class ProjectControllerTest extends ResourcePlannerServerBaseTestController{
+
     private MockMvc mockMvc;
 
+    @Resource
+    private WebApplicationContext context;
+
+    private static ResponseEntity<String> response;
+
+
+
     @Before
-    public void setup() {
-        MockitoAnnotations.initMocks(this);
+    public void setUp(){
+        this.mockMvc=MockMvcBuilders.webAppContextSetup(context).build();
     }
 
 
-
-    @Test
+   /* @Test
     public void addProject() throws Exception {
         JSONObject requestObject=getCreateProjectJsonBody();
         System.out.println(requestObject.toString());
 
-        mockMvc.perform(post(NEW_PROJECT).content(requestObject.toString()).header("tenantId","tenantId1"));
-       /* RequestBuilder requestBuilderCompleteReq =
-                post(NEW_PROJECT).contentType(MediaType.APPLICATION_JSON)
-                        .content(requestObject.toString());*/
+        mockMvc.perform(post("project").content(requestObject.toString()).header("tenantId","tenantId1"))
+                .andExpect(status().isCreated());
 
+
+    }*/
+
+   @Test
+   public void testAddProjectResponse(){
+
+       ProjectDTO projectDTO=new ProjectDTO();
+       ProjectEntityModel project = new ProjectEntityModel();
+       project.setTitle("abcde");
+
+       AttributeValueModel attribute1=new AttributeValueModel();
+       //attribute1.setId("0753bd97-925c-4c08-816d-9cbefbf340a7");
+       attribute1.setValue("1000");
+
+       AttributeValueModel attribute2=new AttributeValueModel();
+       //attribute2.setRefId("38a82921-10aa-4e33-b6c9-8c2c9d6757e5");
+       attribute2.setValue("sample_value1");
+
+       AttributeValueModel attribute3=new AttributeValueModel();
+       //attribute3.setRefId("cd760223-1d95-45f0-92c1-2f3e61880819");
+       attribute3.setValue("sample_value2");
+       projectDTO.setProjectEntity(project);
+       ArrayList<AttributeValueModel> attributes=new ArrayList<>();
+       attributes.add(attribute1);
+       attributes.add(attribute2);
+       projectDTO.setProjectEntity(project);
+        response=addProjectCall(projectDTO);
+
+   }
+
+
+    private ResponseEntity<String> addProjectCall(ProjectDTO projectDto) {
+
+
+
+       HttpEntity<ProjectDTO> entity = new HttpEntity<>(projectDto, httpHeaders);
+       return testRestTemplate.exchange(RESOURCE_PLANNER_SERVER_BASE_URL + "/project",HttpMethod.POST, entity, String.class);
     }
 
-    private JSONObject getCreateProjectJsonBody() throws JSONException {
+    /*private JSONObject getCreateProjectJsonBody() throws JSONException {
         JSONObject requestObject=new JSONObject();
 
         JSONObject project = new JSONObject();
-        project.put("title","test_project");
+        project.put("title","test_projecttt");
 
         JSONObject attribute1 = new JSONObject();
         attribute1.put("refId","0753bd97-925c-4c08-816d-9cbefbf340a7");
@@ -78,7 +112,7 @@ public class ProjectControllerTest {
 
         return requestObject;
 
-    }
+    }*/
 
 
 }
