@@ -8,6 +8,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.UUID;
@@ -22,6 +23,7 @@ public class ProjectAttributeController {
     @Autowired
     private ModelMapper modelMapper;
 
+    @PreAuthorize("hasAuthority('createProjectAttribute')")
     @RequestMapping(method=RequestMethod.POST)
     public ResponseEntity<Response> add(@RequestBody ProjectAttributeDTO projectAttributeDTO){
         ProjectAttributeEntityModel projectAttribute=modelMapper.map(projectAttributeDTO,ProjectAttributeEntityModel.class);
@@ -39,6 +41,7 @@ public class ProjectAttributeController {
         return new ResponseEntity<>(response,HttpStatus.ACCEPTED);
     }
 
+    @PreAuthorize("hasAuthority('readProjectAttribute')")
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<Response>  getAllProjectsAttribute(){
         List<ProjectAttributeEntityModel> projectAttributes=projectAttributeService.findAll();

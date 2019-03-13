@@ -19,8 +19,6 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 
 @SpringBootApplication(exclude = {DataSourceAutoConfiguration.class} ,scanBasePackages = { "com.mitrai" })
-@EnableAuthorizationServer
-@Configuration
 @Import({UtillConfiguration.class})
 public class ResourcePlannerApplication {
 

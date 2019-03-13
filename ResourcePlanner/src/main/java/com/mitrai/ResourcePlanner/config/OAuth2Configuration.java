@@ -11,6 +11,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
+import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.approval.ApprovalStore;
@@ -26,6 +27,7 @@ import javax.sql.DataSource;
 import java.io.IOException;
 import java.nio.charset.Charset;
 
+@EnableAuthorizationServer
 @Configuration
 public class OAuth2Configuration extends AuthorizationServerConfigurerAdapter{
 
@@ -58,7 +60,7 @@ private String datasourceUrl;
 
 	@Bean
 	public JwtAccessTokenConverter tokenEnhancer() {
-		JwtAccessTokenConverter converter = new JwtCustomTokenEnhancer();
+		JwtCustomTokenEnhancer converter = new JwtCustomTokenEnhancer();
 		converter.setSigningKey(loadKeyFromFile("private.cert"));
 		converter.setVerifierKey(loadKeyFromFile("public.cert"));
 		return converter;

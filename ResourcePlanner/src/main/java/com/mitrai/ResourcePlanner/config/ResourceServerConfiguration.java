@@ -24,16 +24,16 @@ import java.io.IOException;
 @Configuration
 @EnableResourceServer
 public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter {
-	
-	/*@Autowired
+
+    @Autowired
     JwtConverter jwtConverter;
-	
-	@Override
+
+    @Override
     public void configure(ResourceServerSecurityConfigurer config) {
         config.tokenServices( createTokenServices() );
     }
 
-    /*@Bean
+    @Bean
     public DefaultTokenServices createTokenServices() {
         DefaultTokenServices defaultTokenServices = new DefaultTokenServices();
         defaultTokenServices.setTokenStore( createTokenStore() );
@@ -41,33 +41,22 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
     }
 
     @Bean
-    public TokenStore createTokenStore() {               
+    public TokenStore createTokenStore() {
         return new JwtTokenStore( createJwtAccessTokenConverter() );
-    }*/
-
-    /*@Bean
-    public JwtAccessTokenConverter createJwtAccessTokenConverter() {
-        JwtAccessTokenConverter converter = new JwtAccessTokenConverter();     
-        converter.setAccessTokenConverter( jwtConverter );
-		Resource resource = new ClassPathResource("public.cert");
-		String publicKey = null;
-		try {
-			publicKey = new String(FileCopyUtils.copyToByteArray(resource.getInputStream()));
-		} catch (IOException e) {
-			throw new RuntimeException(e);
-		}
-		converter.setVerifierKey(publicKey);
-		return converter;
-    }*/
-    @Override
-    public void configure(HttpSecurity http) throws Exception {
-        http.
-                anonymous().disable()
-                .requestMatchers().antMatchers("/rp/**")
-                .and().authorizeRequests()
-                .antMatchers("/rp/**").access("hasRole('ADMIN')")
-                .and().exceptionHandling().accessDeniedHandler(new OAuth2AccessDeniedHandler());
     }
 
-
+    @Bean
+    public JwtAccessTokenConverter createJwtAccessTokenConverter() {
+        JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
+        converter.setAccessTokenConverter( jwtConverter );
+        Resource resource = new ClassPathResource("public.cert");
+        String publicKey = null;
+        try {
+            publicKey = new String(FileCopyUtils.copyToByteArray(resource.getInputStream()));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        converter.setVerifierKey(publicKey);
+        return converter;
+    }
 }
