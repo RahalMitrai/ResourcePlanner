@@ -30,9 +30,10 @@ public class ProjectController {
     @RequestMapping(method=RequestMethod.POST)
     public ResponseEntity<Response> add(@RequestBody @Valid ProjectDTO projectDTO){
         ProjectModel projectModel=modelMapper.map(projectDTO,ProjectModel.class);
-        projectService.save(projectModel);
+        String projectId=projectService.save(projectModel);
         Response response=new Response();
         response.setMessage("Sucessfully created project with attributes");
+        response.setId(projectId);
         return new ResponseEntity<>(response,HttpStatus.CREATED);
     }
 

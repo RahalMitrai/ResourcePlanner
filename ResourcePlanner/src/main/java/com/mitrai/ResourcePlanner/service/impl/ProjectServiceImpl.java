@@ -42,7 +42,7 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     @Transactional
-    public Project save(ProjectModel projectModel) {
+    public String save(ProjectModel projectModel) {
         List<AttributeValueModel> attributes=projectModel.getAttributesValues();
         ProjectEntityModel projectEntityModel =projectModel.getProjectEntity();
         Project project=modelMapper.map(projectEntityModel,Project.class);
@@ -54,7 +54,8 @@ public class ProjectServiceImpl implements ProjectService {
             ProjectAttributeValue projectAttributeValue=new ProjectAttributeValue(projectSaved.getId(),projectAttribute.getId(),attribute.getValue());
             projectAttributeValueRepository.save(projectAttributeValue);
         }
-        return project;
+
+        return projectSaved.getId();
     }
 
     @Override

@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface ProjectService {
 
-    Project save(ProjectModel projectModel);
+    String save(ProjectModel projectModel);
 
     Project update(ProjectModel projectModel);
 

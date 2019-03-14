@@ -28,7 +28,6 @@ public class ResourcePlannerServerBaseTestController {
 
     protected static final String OAUTH_TOKEN_URL = "/oauth/token";
 
-
     protected HttpHeaders httpHeaders = new HttpHeaders();
 
 
