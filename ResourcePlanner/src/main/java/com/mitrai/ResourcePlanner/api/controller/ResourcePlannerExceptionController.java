@@ -17,6 +17,8 @@ public class ResourcePlannerExceptionController {
     @ExceptionHandler(value = ResourcePlannerException.class)
     public ResponseEntity<ExceptionDTO> exception(ResourcePlannerException ex) {
 
+
+
         if(ex.getErrorCode() == 10){
             return new ResponseEntity<ExceptionDTO>(new ExceptionDTO(ex.getErrorMsg(), ex.getErrorCode()), HttpStatus.NOT_FOUND);
         }

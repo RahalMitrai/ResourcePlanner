@@ -6,15 +6,17 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 
 @Getter @Setter @NoArgsConstructor
 public class ProjectDTO {
 
-    @NotNull
+    @Valid
     private ProjectEntityModel projectEntity;
 
+    @Valid
     private ArrayList<AttributeValueModel> attributesValues;
 
 }

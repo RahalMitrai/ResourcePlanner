@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 
@@ -13,9 +14,10 @@ import java.util.ArrayList;
 @NoArgsConstructor
 public class ProjectModel {
 
-    @NotNull
+    @Valid
     private ProjectEntityModel projectEntity;
 
+    @Valid
     private ArrayList<AttributeValueModel> attributesValues;
 
     public ProjectModel(ProjectEntityModel projectEntity,ArrayList<AttributeValueModel> attributesValues){

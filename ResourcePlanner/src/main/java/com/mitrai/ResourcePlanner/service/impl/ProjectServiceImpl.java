@@ -100,7 +100,7 @@ public class ProjectServiceImpl implements ProjectService {
         ProjectAttribute projectAttribute=projectAttributeRepository.findById(id);
 
         if(projectAttribute==null){
-            throw new ProjectNotFoundException("Attribute id : "+id+"not exist",10);
+            throw new ProjectAttributeNotFoundException("Attribute id : "+id+"not exist",10);
 
         }
         return projectAttribute;

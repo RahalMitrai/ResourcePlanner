@@ -24,7 +24,7 @@ public class ResourcePlannerApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(ResourcePlannerApplication.class, args);
-		int i = 0;
+		/*int i = 0;
 		while (i < 10) {
 			String password = "abcde";
 			BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
@@ -32,7 +32,7 @@ public class ResourcePlannerApplication {
 
 			System.out.println(hashedPassword);
 			i++;
-		}
+		}*/
 	}
 
 }
