@@ -6,18 +6,20 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 public class CustomRoutingDataSource extends AbstractRoutingDataSource{
 
-	@Override
+    public final static String DEFAULT_TENANT_ID = "tenantId1";
+
+
+    @Override
 	protected Object determineCurrentLookupKey() {
 		ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();     // get request object
         if(attr!=null) {
             String tenantId = attr.getRequest().getHeader("tenantId"); // find parameter from request
             if(tenantId==null){
-                return "tenantId1";
+                return DEFAULT_TENANT_ID;
             }
             return  tenantId;
-        }else{
-            return "tenantId1";             // default data source
         }
+        return DEFAULT_TENANT_ID;
 
 	}
 

@@ -8,6 +8,7 @@ import com.mitrai.ResourcePlanner.persistence.repository.ProjectAttributeValueRe
 import com.mitrai.ResourcePlanner.persistence.repository.ProjectRepository;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -30,6 +31,9 @@ public class ProjectControllerTest extends ResourcePlannerServerBaseTestControll
 
     @Before
     public void setUpData() {
+        jdbcTemplate.execute("TRUNCATE TABLE project_attribute_value");
+        jdbcTemplate.execute("TRUNCATE TABLE project_attribute");
+        jdbcTemplate.execute("TRUNCATE TABLE project");
 
         String insertProjectAttributeStatement = "INSERT INTO project_attribute(id,label,default_value,data_type) values" +
                 "('aaaaaa-aaa-aaaa-aaaa-aaaaaaaa1','test name','test default1','VARCHAR')," +
@@ -43,9 +47,9 @@ public class ProjectControllerTest extends ResourcePlannerServerBaseTestControll
                 "('aaaaaa-aaa-aaaa-aaaa-aaaaaaaa2', '15-03-2019','pppppp-ppp-ppppp-pppp-ppppppp1')," +
                 "('aaaaaa-aaa-aaaa-aaaa-aaaaaaaa3', '122312','pppppp-ppp-ppppp-pppp-ppppppp1')";
 
-        //jdbcTemplate.execute(insertProjectAttributeStatement);
-        //jdbcTemplate.execute(insertProjectStatement);
-       // jdbcTemplate.execute(insertProjectAttributeValue);
+        jdbcTemplate.execute(insertProjectAttributeStatement);
+        jdbcTemplate.execute(insertProjectStatement);
+        jdbcTemplate.execute(insertProjectAttributeValue);
 
     }
 
@@ -85,7 +89,6 @@ public class ProjectControllerTest extends ResourcePlannerServerBaseTestControll
        Assert.assertEquals(HttpStatus.CREATED,responseEntity.getStatusCode());
        Project project1=projectRepository.findById(createdProjectId);
        Assert.assertEquals(projectName,project1.getTitle());
-        //ProjectAttributeValue projectAttributeValue=projectAttributeValueRepository.
    }
 
 

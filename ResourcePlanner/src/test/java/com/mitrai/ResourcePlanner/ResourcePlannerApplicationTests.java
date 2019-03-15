@@ -1,18 +1,18 @@
 package com.mitrai.ResourcePlanner;
 
-import org.junit.Test;
+import com.mitrai.ResourcePlanner.api.controller.ProjectAttributeControllerTest;
+import com.mitrai.ResourcePlanner.api.controller.ProjectControllerTest;
 import org.junit.runner.RunWith;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.junit.runners.Suite;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest
+@RunWith(Suite.class)
+@Suite.SuiteClasses({
+		ProjectControllerTest.class,
+		ProjectAttributeControllerTest.class
+})
+
 public class ResourcePlannerApplicationTests {
 
-	@Test
-	public void contextLoads() {
-
-	}
 
 }
 

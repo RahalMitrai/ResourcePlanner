@@ -9,6 +9,7 @@ import lombok.Setter;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 @Getter @Setter @NoArgsConstructor
 public class ProjectDTO {
@@ -18,5 +19,11 @@ public class ProjectDTO {
 
     @Valid
     private ArrayList<AttributeValueModel> attributesValues;
+
+    @Override
+    public String toString() {
+        String attributes = this.attributesValues.stream().map(Object::toString).collect(Collectors.joining(", "));
+        return this.projectEntity.getId() + "#" + this.projectEntity.getTitle()+ "#" + attributes;
+    }
 
 }

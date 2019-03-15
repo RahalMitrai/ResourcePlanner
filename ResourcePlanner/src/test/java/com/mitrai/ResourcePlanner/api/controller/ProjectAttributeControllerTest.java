@@ -9,10 +9,7 @@ public class ProjectAttributeControllerTest extends ResourcePlannerServerBaseTes
 
     @Test
     public void testAddProjectAttribute(){
-        ProjectAttributeDTO projectAttributeDTO=new ProjectAttributeDTO();
-        projectAttributeDTO.setLabel("attribute_name_test1");
-        projectAttributeDTO.setDataType(DataType.VARCHAR);
-        projectAttributeDTO.setDefaultValue("default_value1");
+
 
     }
 

@@ -1,5 +1,9 @@
 /target/
 !.mvn/wrapper/maven-wrapper.jar
+logs/archived/
+logs/
+logs/audit-logger.log
+logs/spring-boot-logger.log
 
 ### STS ###
 .apt_generated
