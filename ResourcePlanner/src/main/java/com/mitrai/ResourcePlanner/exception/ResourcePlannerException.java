@@ -12,6 +12,12 @@ public class ResourcePlannerException extends RuntimeException {
     private String errorMsg;
     private int errorCode;
 
+    public ResourcePlannerException(String errorMsg){
+        super();
+        this.errorMsg=errorMsg;
+
+    }
+
     public ResourcePlannerException(String errorMsg,int errorCode){
         super();
         this.errorMsg=errorMsg;

@@ -52,7 +52,7 @@ public class ProjectAttributeServiceImpl implements ProjectAttributeService {
     public void delete(String id) {
         ProjectAttribute projectAttribute=projectAttributeRepository.findById(id);
         if(projectAttribute==null){
-           throw new ProjectAttributeNotFoundException("Project attribute does not exist",10);
+           throw new ProjectAttributeNotFoundException("Project attribute does not exist");
         }
         projectAttributeRepository.deleteById(projectAttribute.getId());
     }
@@ -61,7 +61,7 @@ public class ProjectAttributeServiceImpl implements ProjectAttributeService {
     public void update(ProjectAttributeEntityModel projectAttributeModel){
         ProjectAttribute projectAttributeExist=projectAttributeRepository.findById(projectAttributeModel.getId());
         if(projectAttributeExist==null){
-            throw new ProjectAttributeNotFoundException("Project attribute does not exist",10);
+            throw new ProjectAttributeNotFoundException("Project attribute does not exist");
         }
         projectAttributeExist.setDataType(projectAttributeModel.getDataType());
         projectAttributeExist.setDefaultValue(projectAttributeModel.getDefaultValue());

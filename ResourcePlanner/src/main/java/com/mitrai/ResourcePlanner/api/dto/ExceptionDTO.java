@@ -4,6 +4,10 @@ public class ExceptionDTO {
 	private String message;
 	private int code;
 
+	public ExceptionDTO(String message){
+		this.message=message;
+	}
+
 	public ExceptionDTO(String message, int code) {
 		this.message = message;
 		this.code = code;

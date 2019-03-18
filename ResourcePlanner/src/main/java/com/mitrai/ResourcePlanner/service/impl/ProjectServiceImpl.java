@@ -83,7 +83,7 @@ public class ProjectServiceImpl implements ProjectService {
     public void delete(String id){
         Project project = projectRepository.findById(id);
         if(project==null){
-            throw new ProjectNotFoundException("Project does not exist by id"+id,10);
+            throw new ProjectNotFoundException("Project does not exist by id"+id);
         }
         projectRepository.deleteById(project.getId());
 
@@ -101,7 +101,7 @@ public class ProjectServiceImpl implements ProjectService {
         ProjectAttribute projectAttribute=projectAttributeRepository.findById(id);
 
         if(projectAttribute==null){
-            throw new ProjectAttributeNotFoundException("Attribute id : "+id+"not exist",10);
+            throw new ProjectAttributeNotFoundException("Attribute id : "+id+"not exist");
 
         }
         return projectAttribute;
@@ -110,7 +110,7 @@ public class ProjectServiceImpl implements ProjectService {
     private Project isProjectExist(String id){
         Project project=projectRepository.findById(id);
         if(project==null){
-            throw new ProjectAttributeNotFoundException("Attribute id : "+id+"not exist",10);
+            throw new ProjectAttributeNotFoundException("Attribute id : "+id+"not exist");
         }
         return project;
     }

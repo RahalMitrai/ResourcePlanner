@@ -8,4 +8,8 @@ public class ResourceNotFoundException extends ResourcePlannerException{
     public ResourceNotFoundException(String message, int errorCode){
         super(message,errorCode);
     }
+
+    public ResourceNotFoundException(String message){
+        super(message);
+    }
 }

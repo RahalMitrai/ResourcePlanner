@@ -15,4 +15,9 @@ public class ProjectAttributeNotFoundException  extends ResourceNotFoundExceptio
     public ProjectAttributeNotFoundException(String message, int errorCode){
         super(message, errorCode);
     }
+
+
+    public ProjectAttributeNotFoundException(String message){
+        super(message);
+    }
 }
